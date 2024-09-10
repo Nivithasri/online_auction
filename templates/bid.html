@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auction Page</title>
+<style>
+    .center2 {
+        margin: 0;
+        position: absolute;
+        top: 5%;
+        left: 95%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    </style>
+</head>
+<body>
+
+<div id="product_info">
+    <h2>Product Information</h2>
+    <p><strong>Name:</strong> <span id="product_name">{{data1.prod_name}}</span></p>
+    <p><strong>Description:</strong> <span id="product_description">{{data1.prod_desc}}</span></p>
+    <p><strong>Current Price:</strong> <span id="product_price">{{price}}</span></p>
+    <p><strong>Seller:</strong> <span id="seller_name"></span>{{name}}</p>
+    <p><strong>Time left for auction to close:</strong> <span id="countdown-timer"></span></p>
+</div>
+<form action="raisebid">
+    <button type="submit">RAISE BID</button>
+</form>
+</body>
+<script>
+    var endTime = new Date("{{ data }}"); // Make sure data.end is in the correct format
+    function updateTimer(endTime) {
+        var now = new Date();
+        var timeLeft = Math.max(0, endTime - now);
+
+        var hours = Math.floor(timeLeft / 3600000);
+        var minutes = Math.floor((timeLeft % 3600000) / 60000);
+        var seconds = Math.floor((timeLeft % 60000) / 1000);
+
+        var timerElement = document.getElementById("countdown-timer");
+        timerElement.textContent = "" + hours + "h " + minutes + "m " + seconds + "s";
+
+        if (timeLeft <= 0) {
+            timerElement.textContent = "Auction has ended";
+            clearInterval(timerInterval);
+            var raiseBidButton = document.querySelector("button[type='submit']");
+            raiseBidButton.style.display = "none";
+        }
+    }
+    var timerInterval = setInterval(function () {
+        updateTimer(endTime);
+    }, 1000);
+</script>
+<form action="index">
+    <input type="submit" value="home" class="center2">
+</form>
+</body>
+</html>

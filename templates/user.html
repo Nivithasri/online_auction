@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Login Form Design | CodeLab</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+      function showErrorPopup(message) {
+          alert(message);
+      }
+  </script>
+  <style>
+   .center2 {
+       margin: 0;
+       position: absolute;
+       top: 5%;
+       left: 95%;
+       -ms-transform: translate(-50%, -50%);
+       transform: translate(-50%, -50%);
+   }
+   </style>
+   </head>
+   <body>
+      <div >
+         <div >
+            Login Form
+         </div>
+         {% if error_message %}
+        <script>
+          showErrorPopup("{{ error_message }}");
+        </script>
+      {% endif %}
+         <form action="login" method="post">
+            {% csrf_token %}
+            <div>
+               <input type="text" name="username" value="{{data.username}}" required>
+               <label>username</label>
+            </div>
+            <div>
+               <input type="password" name="password" value="{{data.passworsd}}"required>
+               <label>Password</label>
+            </div>
+            <div>
+               <div>
+                  <input type="checkbox" id="remember-me">
+                  <label for="remember-me">Remember me</label>
+               </div>
+            </div>
+            <div>
+               <input type="submit" value="Login">
+            </div>
+            <div >
+               Not a member? <a href="signup">Signup now</a>
+            </div>
+         </form>
+      </div>
+      <form action="index">
+         <input type="submit" value="home" class="center2">
+     </form>
+   </body>
+</html>

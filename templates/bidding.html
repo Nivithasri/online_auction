@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <style>
+    .center2 {
+        margin: 0;
+        position: absolute;
+        top: 5%;
+        left: 95%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    </style>
+
+  <title>
+    Oggy Auction
+  </title>
+
+  
+</head>
+
+<body>
+  
+      <div class="row">
+        
+          {% for product in data %}
+              <div class="product">
+                <img src="media/{{ product.image }}" alt="{{ product.name }}">
+                  <h2>{{ product.name }}</h2>
+                  <form action="info1" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="pid" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-primary">More info</button>
+                </form>
+              </div>
+          {% endfor %}
+      <br>
+       
+      </div>
+    </div>
+  </section>
+
+  <!-- end shop section -->
+  <form action="index">
+    <input type="submit" value="home" class="center2">
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Registration Form</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+      function showErrorPopup(message) {
+          alert(message);
+      }
+  </script>
+  <style>
+    .center2 {
+        margin: 0;
+        position: absolute;
+        top: 5%;
+        left: 95%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    </style>  
+    <script>
+        $(document).ready(function() {
+            $('input[name="phone"], input[name="email"], input[name="zip"], input[name="pass"]').on('blur', function() {
+                var field_name = $(this).attr('name');
+                var field_value = $(this).val();
+                var error_message = '';
+                if (field_name === 'phone' && field_value && !/^\+?[0-9]{10}$/.test(field_value)) {
+                    error_message = 'Phone number must be a 10-digit numeric value.';
+                    document.getElementById(field_name).style.border = '2px solid red'; 
+                } else if (field_name === 'email' && field_value && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(field_value)) {
+                    error_message = 'Invalid Gmail address.';
+                    document.getElementById(field_name).style.border = '2px solid red'; 
+                } else if (field_name === 'zip' && field_value && !/^[0-9]{6}$/.test(field_value)) {
+                    error_message = 'Pincode must be a 6-digit numeric value.';
+                    document.getElementById(field_name).style.border = '2px solid red'; 
+                } else if (field_name === 'pass' && field_value && !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/.test(field_value)) {
+                    error_message = 'Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.';
+                    document.getElementById(field_name).style.border = '2px solid red'; 
+                }
+
+                if (error_message) {
+                    alert(error_message);
+                }
+            });
+        });
+    </script>
+
+   </head>
+<body>
+  <div>
+    <div>Registration</div>
+    <div>
+      {% if error_message %}
+        <script>
+          showErrorPopup("{{ error_message }}");
+        </script>
+      {% endif %}
+      <form action="userdata" method="post">
+        {% csrf_token %}
+        <div >
+          <div >
+            <span >Full Name</span>
+            <input type="text" id="fullname" placeholder="Enter your name" name="fullname" value="{{data.fullname}}" required>
+          </div>
+          <div >
+            <span >Username</span>
+            <input type="text" id="username" placeholder="Enter your username" name="username" value="{{data.username}}"required>
+          </div>
+          <div>
+            <span >Email</span>
+            <input type="text" id="email" placeholder="Enter your email" name="email" value="{{data.email}}"required>
+          </div>
+          <div >
+            <span>Phone Number</span>
+            <input type="text" id="phone" placeholder="Enter your number" name="phone" value="{{data.phone}}"required>
+          </div>
+          <div>
+            <span>Street number</span>
+            <input type="text" id="strno" placeholder="Enter your street number" name="strno" value="{{data.strno}}"required>
+          </div>
+          <div >
+            <span >Street Name</span>
+            <input type="text" id="strname" placeholder="Enter your street name" name="strname" value="{{data.strname}}"required>
+          </div>
+          <div >
+            <span >City</span>
+            <input type="text" id="city" placeholder="Enter your city" name="city" value="{{data.city}}"required>
+          </div>
+          <div >
+            <span>State</span>
+            <input type="text" id="state" placeholder="Enter your state" name="state" value="{{data.state}}"required>
+          </div>
+          <div>
+            <span>Zip Code</span>
+            <input type="text" id="zip" placeholder="Enter your zipcode" name="zip" value="{{data.zip}}"required>
+          </div>
+          <div>
+            <span>Password</span>
+            <input type="text" id="pass" placeholder="Enter your password" name="pass" value="{{data.pass}}"required>
+          </div>
+          <div>
+            <span>Confirm Password</span>
+            <input type="text" id="pass1" placeholder="Confirm your password" name="pass1" value="{{data.pass1}}"required>
+          </div>
+        </div>
+       
+        <div >
+          <input type="submit" value="Register">
+        </div>
+      </form>
+      <form action="index">
+        <input type="submit" value="home" class="center2">
+    </form>
+    </div>
+  </div>
+
+</body>
+</html>

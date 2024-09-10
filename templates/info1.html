@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+    <style>
+        body {
+            background-image: url(https://drive.google.com/uc?export=view&id=1Hiv-QEKpISw8LGEg3Wkjgin9FUYsvrVu);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .button-52 {
+            font-size: 16px;
+            font-weight: 200;
+            letter-spacing: 1px;
+            padding: 26px 40px 26px;
+            outline: 0;
+            border: 1px solid black;
+            cursor: pointer;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+            .button-52:after {
+                content: "";
+                background-color: #ffe54c;
+                width: 100%;
+                z-index: -1;
+                position: absolute;
+                height: 100%;
+                top: 7px;
+                left: 7px;
+                transition: 0.2s;
+            }
+
+            .button-52:hover:after {
+                top: 0px;
+                left: 0px;
+            }
+
+        @media (min-width: 768px) {
+            .button-52 {
+                padding: 26px 100px 26px;
+            }
+        }
+
+        
+        .countdown-timer {
+            font-size: 20px;
+        }
+        .center2 {
+            margin: 0;
+            position: absolute;
+            top: 5%;
+            left: 95%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h2>DETAILS: </h2>
+    <p><strong>Name:</strong> <span id="product_name">{{data1.prod_name}}</span></p>
+    <p><strong>Description:</strong> <span id="product_description">{{data1.prod_desc}}</span></p>
+    <p><strong>Current Price:</strong> <span id="product_price">{{price}}</span></p>
+    <p><strong>Seller:</strong> <span id="seller_name"></span>{{name}}</p>
+    <div class="countdown-timer" id="countdown-timer"></div>
+    <script>
+        var time = "{{ data }}"
+        function updateTimer(endTime) {
+            var now = new Date();
+            var timeLeft = Math.max(0, endTime - now);
+
+            var hours = Math.floor(timeLeft / 3600000);
+            var minutes = Math.floor((timeLeft % 3600000) / 60000);
+            var seconds = Math.floor((timeLeft % 60000) / 1000);
+
+            var timerElement = document.getElementById("countdown-timer");
+            timerElement.textContent = "Time left: " + hours + "h " + minutes + "m " + seconds + "s";
+
+            if (timeLeft === 0) {
+                if("{{ winner }}")
+                {
+                    timerElement.textContent = "Auction has ended. CONGRATS YOU WON. CHECK YOUR MAIL FOR FURTHER INFO";
+                }
+                else
+                {
+                    timerElement.textContent = "Auction has ended. YOU LOST. BETTER LUCK NEXT TIME";
+                }
+
+            }
+        }
+        var endTime = new Date(time);
+        var timerInterval = setInterval(function () {
+            updateTimer(endTime);
+        }, 1000);
+    </script>
+    
+    <form action="index">
+        <input type="submit" value="home" class="center2">
+    </form>
+    
+</body>
+</html>

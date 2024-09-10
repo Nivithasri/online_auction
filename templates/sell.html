@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SELL PRODUCT</title>
+    <script>
+        function validateForm() {
+            var startBid = document.getElementById("Start_bid").value;
+            var minBid = document.getElementById("Min_bid").value;
+            if (startBid <= 0) {
+                alert("Starting Price must be greater than 0");
+                return false;
+            }
+            if (minBid <= 0) {
+                alert("Minimum Price interval must be greater than 0");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <style>
+        .center2 {
+            margin: 0;
+            position: absolute;
+            top: 5%;
+            left: 95%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        </style>
+</head>
+<body>
+    <h2>Enter product details</h2>
+    <form method="post" action="product" id="f1" onsubmit="return validateForm()"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="Prod_name">Product Name: </label>
+        <input type="text" name="Prod_name" required><br><br>
+        <label for="Start_bid">Starting Price: </label>
+        <input type="number"  name="Start_bid" required><br><br>
+        <label for="Min_bid">Minimum Price interval: </label>
+        <input type="number"  name="Min_bid" required><br><br> 
+        <label for="Product_desc">Product description: </label>
+        <input type="text"  name="Product_desc" required><br><br>
+        <label for="category">Select a Category:</label>
+        <select id="category" name="Cat_id">
+            {% for d in data %}
+            <option value="{{ d.cat_id }}">{{ d.cat_name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="image">Upload an Image of the Product:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+        <label for="start">Auction Start Date and Time:</label>
+        <input type="datetime-local" id="start" name="start">
+        <label for="end">Auction End Date and Time:</label>
+        <input type="datetime-local" id="end" name="end">
+        <input type="submit" value="SET AUCTION">
+    </form>
+    <form action="index">
+        <input type="submit" value="home" class="center2">
+    </form>
+</body>
+</html>
+

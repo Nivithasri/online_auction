@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        body {
+            background-image: url(https://drive.google.com/uc?export=view&id=1Hiv-QEKpISw8LGEg3Wkjgin9FUYsvrVu);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .center2 {
+            margin: 0;
+            position: absolute;
+            top: 5%;
+            left: 95%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .button-52 {
+            font-size: 16px;
+            font-weight: 200;
+            letter-spacing: 1px;
+            padding: 26px 40px 26px;
+            outline: 0;
+            border: 1px solid black;
+            cursor: pointer;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+            .button-52:after {
+                content: "";
+                background-color: #ffe54c;
+                width: 100%;
+                z-index: -1;
+                position: absolute;
+                height: 100%;
+                top: 7px;
+                left: 7px;
+                transition: 0.2s;
+            }
+
+            .button-52:hover:after {
+                top: 0px;
+                left: 0px;
+            }
+
+        @media (min-width: 768px) {
+            .button-52 {
+                padding: 26px 100px 26px;
+            }
+        }
+    </style>
+    <script>
+    function validateForm() {
+        var bid = document.getElementById("bid");
+        var bidd = parseInt(bid.value, 10);
+        var max = "{{ maxbid }}";
+        var inte=max+ "{{inter}}";
+        if (bidd < max) {
+            alert("Bid amount should be greater than latest bid " + max);
+            return false; // Prevent form submission
+        }
+        if (bidd < inte) {
+            alert("minimum bid difference should be greater than " + inte);
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+
+    function enableFormSubmission() {
+        var form = document.getElementById("myForm");
+        form.onsubmit = function () {
+            return validateForm();
+        };
+    }
+    </script>
+    <style>
+        .center2 {
+            margin: 0;
+            position: absolute;
+            top: 5%;
+            left: 95%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        </style>
+</head>
+<body>
+    <form id="myForm" onsubmit="return validateForm()" method="post" action="bidd">
+        {% csrf_token %}
+        <label for="bidam">BID AMOUNT: </label>
+        <input type="text" id="bidam" name="bidam">
+        <input type="submit" value="Submit" onclick="enableFormSubmission()">
+    </form>
+    <form action="index">
+        <input type="submit" value="home" class="center2">
+    </form>
+</body>
+</html>
