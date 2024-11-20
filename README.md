@@ -75,7 +75,7 @@ The **Online Auction System with Binomial Heap-Based Bidding** is a web applicat
    python manage.py runserver  
    ```  
 
-5. Open your browser and navigate to `http://127.0.0.1:8000/`.  
+5. Open your browser and navigate to localhost.  
 
 
 
